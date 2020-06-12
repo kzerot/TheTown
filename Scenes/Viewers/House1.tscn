@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Viewers/Viewer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Houses/House1.tscn" type="PackedScene" id=2]
+
+[node name="Viewer" instance=ExtResource( 1 )]
+margin_right = 46.0
+margin_bottom = 67.0
+house = ExtResource( 2 )
+
+[node name="Viewport" parent="." index="0"]
+size = Vector2( 150, 150 )
+size_override_stretch = true
+
+[node name="Camera" parent="Viewport/Viewer" index="0"]
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 2, 4.38671, 2 )
+
+[node name="House" parent="Viewport/Viewer" index="1" instance=ExtResource( 2 )]
