@@ -7,6 +7,7 @@ var markers = []
 var field = {}
 export (NodePath) var n_viewer
 var viewers : HBoxContainer
+var click = 0
 func _ready() -> void:
 	viewers = get_node(n_viewer)
 	# Generate 5 markers
@@ -24,6 +25,9 @@ func _ready() -> void:
 	for i in viewers.get_child_count():
 		viewers.get_child(i).connect("pressed", self, "viewer_tap", [viewers.get_child(i)])
 
+func _process(delta: float) -> void:
+	click += delta
+
 func terrain_tapped(vec : Vector3, real: Vector3):
 	print("Terrain coordinates: ", vec)
 	print("Global coordinates: ", real)
@@ -37,6 +41,9 @@ func viewer_tap(h_inst: PackedScene, view) -> void:
 	$Houses.add_child(house)
 	update_markers(house.markers_count())
 	view.queue_free()
+	to_grid(house, Vector3(0,0,0))
+	check(house)
+	house.start()
 
 func pick(mask=1):
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -59,41 +66,59 @@ func _input(event):
 				elif result.collider is House:
 					print(result.collider.name)
 					selected = result.collider
+					selected.stop()
 					selected.update_markers(markers)
+					click = 0
 		else:
 			var result = pick(1)
 			if result and result.collider == terrain and selected:
-				var position = terrain.world_to_map(result.position)
-				clamp_pos(position)
-				terrain_tapped(position, result.position)
-				var can_build = can_build()
-				if can_build:
-					selected.build()
-					for c in selected.get_collisions():
-						var w = terrain.world_to_map(c)
-						field[int(w.x)][int(w.z)] = false
+				if click <= 0.5:
+					selected.rotate_y(deg2rad(90))
+					check()
+				else:
+					var position = terrain.world_to_map(result.position)
+					clamp_pos(position)
+					terrain_tapped(position, result.position)
+					var can_build = can_build()
+					if can_build:
+						selected.build()
+						for c in selected.get_collisions():
+							var w = terrain.world_to_map(c)
+							field[int(w.x)][int(w.z)] = false
+					else:
+						check()
 				selected = null
 #	 or event is InputEventScreenDrag
 	elif event is InputEventMouseMotion:
 		if selected:
 			var result = pick(1)
 			if result and result.collider == terrain:
-				var can = can_build()
-				selected.update_markers(markers)
-				if can:
-					selected.down()
-				else:
-					selected.up()
+				check()
 				to_grid(selected, result.position)
-func can_build():
-	assert(selected)
-	for coor in selected.get_collisions():
+func check(force=null):
+	if not force:
+		force = selected
+	if force:
+		var can = can_build(force)
+		force.update_markers(markers)
+		if can:
+			force.down()
+		else:
+			force.up()
+
+func can_build(force=null):
+	if not force:
+		force = selected
+	assert(force)
+	for coor in force.get_collisions():
 		var w = terrain.world_to_map(coor)
 		var a = int(w.x) in field
 		var b = int(w.z) in field[int(w.x)] if a else false
 
 		if not a or not b or not field[int(w.x)][int(w.z)]:
+			force.can_build = false
 			return false
+	force.can_build = true
 	return true
 
 func update_markers(count):
@@ -106,6 +131,7 @@ func to_grid(obj: Spatial, pos: Vector3):
 	var coor_span = terrain.map_to_world(coor.x, coor.y, coor.z)
 	obj.translation.x = coor_span.x
 	obj.translation.z = coor_span.z
+
 	return coor
 
 func clamp_pos(coor):

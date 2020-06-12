@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Tiles/Terrain.meshlib" type="MeshLibrary" id=2]
 [ext_resource path="res://Scripts/Terrain.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Houses/HouseH.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
@@ -12,7 +13,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh_library = ExtResource( 2 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 1, 0, 1, 1, -1610612736, 2, 1, 0, 65533, 1, 0, 65534, 1, -1610612736, 65535, 1, 0, 0, 2, 0, 1, 2, 0, 2, 2, 1, 65533, 2, -1610612735, 65534, 2, 0, 65535, 2, 0, 0, 65533, -1610612736, 1, 65533, 0, 2, 65533, 1, 65533, 65533, 1, 65534, 65533, 0, 65535, 65533, -1610612736, 0, 65534, 0, 1, 65534, 0, 2, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, -1610612736, 1, 65535, 0, 2, 65535, 0, 65533, 65535, 0, 65534, 65535, 0, 65535, 65535, 536870912 )
+"cells": PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 2, 0, 1, 2, 0, 2, 2, 536870913, 65533, 2, 1, 65534, 2, 0, 65535, 2, 0, 0, 65533, 0, 1, 65533, 0, 2, 65533, 1, 65533, 65533, 1, 65534, 65533, 0, 65535, 65533, 0, 0, 65534, 0, 1, 65534, 0, 2, 65534, -1610612736, 65533, 65534, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, -1610612736, 1, 65535, -1610612736, 2, 65535, -1610612736, 65533, 65535, 0, 65534, 65535, -1610612736, 65535, 65535, 0 )
 }
 script = ExtResource( 3 )
 __meta__ = {
@@ -37,5 +38,8 @@ transform = Transform( -0.573605, -0.642416, 0.508212, 0.294604, 0.417119, 0.859
 light_energy = 0.5
 
 [node name="Houses" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="House" parent="Houses" instance=ExtResource( 4 )]
 
 [node name="Markers" type="Spatial" parent="."]
