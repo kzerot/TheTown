@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Game.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Viewers/House1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Viewers/HouseH.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Viewers/HouseZ.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -64,20 +65,30 @@ margin_bottom = 183.0
 rect_clip_content = true
 
 [node name="Viewers" type="HBoxContainer" parent="MainContainer/Bottom/Buttons"]
-margin_right = 458.0
+margin_right = 766.0
 margin_bottom = 176.0
 rect_clip_content = true
 
-[node name="Viewer" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 2 )]
+[node name="Viewer5" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 2 )]
 margin_right = 150.0
 margin_bottom = 176.0
 
-[node name="Viewer3" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 3 )]
+[node name="Viewer2" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 4 )]
 margin_left = 154.0
 margin_right = 304.0
 margin_bottom = 176.0
 
-[node name="Viewer4" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 3 )]
+[node name="Viewer3" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 3 )]
 margin_left = 308.0
 margin_right = 458.0
+margin_bottom = 176.0
+
+[node name="Viewer" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 2 )]
+margin_left = 462.0
+margin_right = 612.0
+margin_bottom = 176.0
+
+[node name="Viewer4" parent="MainContainer/Bottom/Buttons/Viewers" instance=ExtResource( 3 )]
+margin_left = 616.0
+margin_right = 766.0
 margin_bottom = 176.0

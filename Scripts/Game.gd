@@ -70,24 +70,26 @@ func _input(event):
 					selected.update_markers(markers)
 					click = 0
 		else:
+			var result_house = pick(2)
 			var result = pick(1)
-			if result and result.collider == terrain and selected:
-				if click <= 0.5:
-					selected.rotate_y(deg2rad(90))
-					check()
+
+			if click <= 0.5 and result_house.collider is House and selected:
+				selected.rotate_y(deg2rad(90))
+				check()
+			elif result and result.collider == terrain and selected:
+				var position = terrain.world_to_map(result.position)
+				clamp_pos(position)
+				terrain_tapped(position, result.position)
+				var can_build = can_build()
+				if can_build:
+					selected.build()
+					for c in selected.get_collisions():
+						var w = terrain.world_to_map(c)
+						field[int(w.x)][int(w.z)] = false
+					update_markers(0)
 				else:
-					var position = terrain.world_to_map(result.position)
-					clamp_pos(position)
-					terrain_tapped(position, result.position)
-					var can_build = can_build()
-					if can_build:
-						selected.build()
-						for c in selected.get_collisions():
-							var w = terrain.world_to_map(c)
-							field[int(w.x)][int(w.z)] = false
-					else:
-						check()
-				selected = null
+					check()
+			selected = null
 #	 or event is InputEventScreenDrag
 	elif event is InputEventMouseMotion:
 		if selected:
