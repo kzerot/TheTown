@@ -1,4 +1,4 @@
-extends ViewportContainer
+extends TextureRect
 
 signal pressed(house)
 

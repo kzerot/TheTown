@@ -1,16 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Viewers/Viewer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Houses/HouseH.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/RawHouses/HouseH.tscn" type="PackedScene" id=3]
 
 [node name="Viewer" instance=ExtResource( 1 )]
 house = ExtResource( 2 )
 
-[node name="Viewport" parent="." index="0"]
-size = Vector2( 150, 150 )
-
-[node name="Camera" parent="Viewport/Viewer" index="0"]
-transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 2, 5.33972, 2 )
+[node name="Camera" parent="Viewer/Viewport/Viewer" index="0"]
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 3.94617, 5.7915, 3.24487 )
 size = 8.0
+far = 150.0
 
-[node name="House" parent="Viewport/Viewer" index="1" instance=ExtResource( 2 )]
+[node name="house_g" parent="Viewer/Viewport/Viewer" index="1" instance=ExtResource( 3 )]

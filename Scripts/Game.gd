@@ -36,6 +36,9 @@ func terrain_tapped(vec : Vector3, real: Vector3):
 func viewer_tap(h_inst: PackedScene, view) -> void:
 	if selected:
 		return
+	for c in $Houses.get_children():
+		if c.state != House.STATE.BUILT:
+			return
 	print("Viewer")
 	var house : House = h_inst.instance()
 	$Houses.add_child(house)

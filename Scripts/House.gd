@@ -49,6 +49,8 @@ func start():
 func build():
 	$AnimationPlayer.play("Build")
 	collision_layer= 0
+	state = STATE.BUILT
+
 
 func update_markers(markers):
 	for i in $Rays.get_child_count():
