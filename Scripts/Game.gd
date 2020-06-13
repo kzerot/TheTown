@@ -203,9 +203,9 @@ func build():
 	selected = null
 
 # warning-ignore:unused_argument
-func _input(event):
+func _unhandled_input(event):
 #	event is InputEventScreenTouch or
-	if (event is InputEventMouseButton):
+	if (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
 
 		if event.pressed:
 			if selected:
@@ -227,7 +227,8 @@ func _input(event):
 #					selected.stop()
 #					selected.update_markers(markers)
 #					click = 0
-		else:
+		elif is_dragging:
+			print("click")
 			is_dragging = false
 #			var result_house = pick(2)
 			var result = pick(4)

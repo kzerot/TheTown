@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Themes/Base.tres" type="Theme" id=2]
@@ -16,10 +16,24 @@
 [ext_resource path="res://Sound/tap_on_buttons.wav" type="AudioStream" id=14]
 [ext_resource path="res://Sound/starting_to_pull.wav" type="AudioStream" id=15]
 [ext_resource path="res://Sound/building.wav" type="AudioStream" id=16]
+[ext_resource path="res://Images/sound_off.png" type="Texture" id=17]
+[ext_resource path="res://Images/sound_on.png" type="Texture" id=18]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends ViewportContainer
+
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		pass
+	$Viewport.unhandled_input(event)
+"
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -31,6 +45,7 @@ viewers = NodePath("Buttons/Viewers")
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
 __meta__ = {
@@ -42,6 +57,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 3
 stretch = true
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -52,6 +68,38 @@ transparent_bg = true
 handle_input_locally = false
 msaa = 1
 render_target_update_mode = 3
+
+[node name="Sound" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -64.0
+margin_top = 52.9322
+margin_bottom = 116.932
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 10
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound" type="TextureButton" parent="Sound"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 11.8781
+margin_top = 12.9322
+margin_right = -12.1219
+margin_bottom = -11.0678
+toggle_mode = true
+pressed = true
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 18 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="HBoxContainer" parent="."]
 anchor_right = 1.0
@@ -219,5 +267,6 @@ stream = ExtResource( 13 )
 [node name="Build" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 volume_db = 7.0
+[connection signal="toggled" from="Sound/Sound" to="." method="toggle_sound"]
 [connection signal="pressed" from="Buttons/Buttons/Again/Again" to="." method="reload"]
 [connection signal="pressed" from="Buttons/Buttons/TextureRect2/Settings" to="." method="settings"]

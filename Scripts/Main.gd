@@ -53,8 +53,17 @@ func next_level():
 	load_level()
 
 func reload() -> void:
+	game.is_dragging = false
 	load_level()
 
 
 func settings() -> void:
+	game.is_dragging = false
 	pass # Replace with function body.
+
+
+func toggle_sound(b) -> void:
+	print("Audio")
+	game.is_dragging = false
+	AudioServer.set_bus_mute(0, !b)
+
