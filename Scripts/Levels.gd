@@ -1,21 +1,21 @@
 extends Node
 
-var current_level = 4
+var current_level = 1
 
 const levels = {
 	1: {
 		"scene": "3x2",
 		"figures": ["L:90:0,0,2", "L:270:0,0,2"],
 		"lines": {
-			2: 2
+			2: 1
 		}
 	},
 
 	2: {
 		"scene": "3x3",
-		"figures": ["L:0","H_M:90:2,0,2,0", "2:0:0,2"],
+		"figures": ["L:0","H_M:90:4,0,4,0", "2:0:0,4"],
 		"lines": {
-			2: 3
+			4: 1
 		}
 	},
 
@@ -23,7 +23,7 @@ const levels = {
 		"scene": "3x3",
 		"figures": ["1_A:0","H:90:3,0,0,0", "Z_M:0:0,3,0,3"],
 		"lines": {
-			3: 3
+			3: 1
 		}
 	},
 
@@ -31,7 +31,7 @@ const levels = {
 		"scene": "3x3",
 		"figures": ["1_A:90","H:180:2,0,0,0", "Z_M:90:0,2,0,2"],
 		"lines": {
-			3: 3
+			2: 1
 		}
 	},
 }

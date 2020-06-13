@@ -31,11 +31,14 @@ func load_level(i=-1):
 		game.lines = res.lines
 	game.init()
 	game.connect("win", self, "next_level")
+	game.connect("restart", self, "reload")
 	game.connect("add_money", self, "add_money")
 
 func add_money(c):
 	$MainContainer/Panel/Money/Panel/Count.text = \
 		str (int($MainContainer/Panel/Money/Panel/Count.text) + c)
+
+
 
 func next_level():
 	Levels.current_level += 1
@@ -43,6 +46,7 @@ func next_level():
 		print("End of game, level 1")
 		Levels.current_level = 1
 	load_level()
+
 func reload() -> void:
 	load_level()
 

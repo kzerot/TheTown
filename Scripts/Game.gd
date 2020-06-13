@@ -2,7 +2,7 @@ extends Spatial
 
 signal add_money(howmuch)
 signal win
-
+signal restart
 var terrain : Terrain
 var selected = null
 var is_dragging = false
@@ -112,33 +112,40 @@ func resize():
 
 
 func win():
-	count_lines(2)
+	var is_win = true
+	for line in lines:
+		is_win = is_win and lines[line] <= count_lines(line)
 	game_started = false
-	var x = 1
-	var f_place_time = figures_count*2 + 1
-	if f_place_time >= game_time:
-		# 1 place
-		x = 4
-	elif f_place_time * 1.5 >= game_time:
-		x = 3
-	elif f_place_time * 1.5 * 1.5 >= game_time:
-		x = 2
-	var particles_arr = []
-	for cell in terrain.get_all():
-		var particles = particles_inst.instance()
-		add_child(particles)
-		particles.translation = cell
-		particles.fire(1*x)
-		emit_signal("add_money", 1*x)
-		var t = get_tree().create_timer(0.2)
+	if is_win:
+		var x = 1
+		var f_place_time = figures_count*2 + 1
+		if f_place_time >= game_time:
+			# 1 place
+			x = 4
+		elif f_place_time * 1.5 >= game_time:
+			x = 3
+		elif f_place_time * 1.5 * 1.5 >= game_time:
+			x = 2
+		var particles_arr = []
+		for cell in terrain.get_all():
+			var particles = particles_inst.instance()
+			add_child(particles)
+			particles.translation = cell.global
+			var color = field[int(cell.local.x)][int(cell.local.z)]
+			var price = 1 if color <= 0 else 4
+			particles.fire(price*x)
+			emit_signal("add_money", price*x)
+			var t = get_tree().create_timer(0.2)
+			yield(t, "timeout")
+
+		for p in particles_arr:
+			p.queue_free()
+
+		var t = get_tree().create_timer(0.5)
 		yield(t, "timeout")
-
-	for p in particles_arr:
-		p.queue_free()
-
-	var t = get_tree().create_timer(0.5)
-	yield(t, "timeout")
-	emit_signal("win")
+		emit_signal("win")
+	else:
+		emit_signal("restart")
 
 func count_lines(col):
 	for f in field:

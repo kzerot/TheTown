@@ -14,7 +14,10 @@ func _ready() -> void:
 func get_all():
 	var res = []
 	for el in get_used_cells():
-		res.append(map_to_world(el.x, el.y, el.z))
+		 res.append({
+			"local": el,
+			"global": map_to_world(el.x, el.y, el.z)})
+
 	return res
 
 func build_field():
