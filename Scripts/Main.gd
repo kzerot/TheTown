@@ -33,10 +33,15 @@ func load_level(i=-1):
 	game.connect("win", self, "next_level")
 	game.connect("restart", self, "reload")
 	game.connect("add_money", self, "add_money")
+	game.connect("sound", self, "sound")
+
+func sound(s):
+	get_node(s).stop()
+	get_node(s).play()
 
 func add_money(c):
-	$MainContainer/Panel/Money/Panel/Count.text = \
-		str (int($MainContainer/Panel/Money/Panel/Count.text) + c)
+	$Panel/Money/Panel/Count.text = \
+		str (int($Panel/Money/Panel/Count.text) + c)
 
 
 

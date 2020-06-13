@@ -3,6 +3,7 @@ extends Spatial
 signal add_money(howmuch)
 signal win
 signal restart
+signal sound(s)
 var terrain : Terrain
 var selected = null
 var is_dragging = false
@@ -19,7 +20,8 @@ var game_time = 0
 var figures_count = 0
 var lines = {}
 func init():
-	$DirectionalLight.shadow_enabled = !OS.has_feature('JavaScript')
+	if has_node("DirectionalLight"):
+		$DirectionalLight.shadow_enabled = !OS.has_feature('JavaScript')
 
 	# Generate 5 markers
 	for i in 5:
@@ -83,6 +85,8 @@ func pick(mask=1):
 	return space_state.intersect_ray(from, to, [], mask)
 
 func house_built():
+	if  $Houses.get_child_count() > 0:
+		emit_signal("sound", "Build")
 	if viewers.get_child_count() == 0:
 		print("Win!")
 		return win()
@@ -135,13 +139,14 @@ func win():
 			var price = 1 if color <= 0 else 4
 			particles.fire(price*x)
 			emit_signal("add_money", price*x)
+			emit_signal("sound", "Coins")
 			var t = get_tree().create_timer(0.2)
 			yield(t, "timeout")
 
 		for p in particles_arr:
 			p.queue_free()
-
-		var t = get_tree().create_timer(0.5)
+		emit_signal("sound", "Win")
+		var t = get_tree().create_timer(1.0)
 		yield(t, "timeout")
 		emit_signal("win")
 	else:
@@ -208,7 +213,7 @@ func _input(event):
 				if result:
 					is_dragging = true
 					delta = selected.translation - result.position
-
+					emit_signal("sound", "Tap")
 
 #			var result = pick(3)
 #			if result:
@@ -249,20 +254,21 @@ func _input(event):
 #	 or event is InputEventScreenDrag
 	elif event is InputEventMouseMotion:
 		if selected and is_dragging:
-			var result = pick(1)
+#			var result = pick(1)
 			var floor_col = pick(4)
-			if result and result.collider == terrain:
-				var current_pos = to_grid(selected, result.position + delta)
-				if last_pos != current_pos:
-					last_pos =  current_pos
-					click = 0
-					check()
-			elif floor_col:
+#			if result and result.collider == terrain:
+#				var current_pos = to_grid(selected, result.position + delta)
+#				if last_pos != current_pos:
+#					last_pos =  current_pos
+#					click = 0
+#					check()
+			if floor_col:
 				var current_pos = to_grid(selected, floor_col.position + delta)
 				if last_pos != current_pos:
 					last_pos =  current_pos
 					click = 0
 					check()
+					emit_signal("sound", "Tap")
 
 func check(force=null):
 	if not force:
@@ -304,7 +310,7 @@ func to_grid(obj: Spatial, pos: Vector3):
 	var coor_span = terrain.map_to_world(coor.x, coor.y, coor.z)
 	obj.translation.x = coor_span.x
 	obj.translation.z = coor_span.z
-
+	coor.y = 0
 	return coor
 
 func clamp_pos(coor):

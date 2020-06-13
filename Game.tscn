@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Themes/Base.tres" type="Theme" id=2]
@@ -7,9 +7,15 @@
 [ext_resource path="res://Images/ButtonFlip.png" type="Texture" id=5]
 [ext_resource path="res://Images/money.png" type="Texture" id=6]
 [ext_resource path="res://Images/Gear.png" type="Texture" id=7]
+[ext_resource path="res://Sound/bgm.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Images/market.png" type="Texture" id=9]
 [ext_resource path="res://Images/ButtonLeftSmal.png" type="Texture" id=10]
 [ext_resource path="res://Images/Button.png" type="Texture" id=11]
+[ext_resource path="res://Sound/coin.wav" type="AudioStream" id=12]
+[ext_resource path="res://Sound/victory.wav" type="AudioStream" id=13]
+[ext_resource path="res://Sound/tap_on_buttons.wav" type="AudioStream" id=14]
+[ext_resource path="res://Sound/starting_to_pull.wav" type="AudioStream" id=15]
+[ext_resource path="res://Sound/building.wav" type="AudioStream" id=16]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -20,7 +26,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 viewport = NodePath("GameWindow/Viewport")
-viewers = NodePath("MainContainer/Buttons/Viewers")
+viewers = NodePath("Buttons/Viewers")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -47,25 +53,20 @@ handle_input_locally = false
 msaa = 1
 render_target_update_mode = 3
 
-[node name="MainContainer" type="VBoxContainer" parent="."]
+[node name="Panel" type="HBoxContainer" parent="."]
 anchor_right = 1.0
-anchor_bottom = 1.0
+margin_bottom = 64.0
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="HBoxContainer" parent="MainContainer"]
-margin_right = 400.0
-margin_bottom = 64.0
-mouse_filter = 2
-
-[node name="Money" type="Control" parent="MainContainer/Panel"]
+[node name="Money" type="Control" parent="Panel"]
 margin_right = 164.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 164, 64 )
 
-[node name="Panel" type="TextureRect" parent="MainContainer/Panel/Money"]
+[node name="Panel" type="TextureRect" parent="Panel/Money"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 55.0
@@ -78,7 +79,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Count" type="Label" parent="MainContainer/Panel/Money/Panel"]
+[node name="Count" type="Label" parent="Panel/Money/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 2.0
@@ -90,7 +91,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="MainContainer/Panel/Money"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Money"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -98.0
@@ -102,7 +103,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Market" type="TextureRect" parent="MainContainer/Panel"]
+[node name="Market" type="TextureRect" parent="Panel"]
 margin_left = 336.0
 margin_right = 400.0
 margin_bottom = 64.0
@@ -115,7 +116,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton" type="TextureButton" parent="MainContainer/Panel/Market"]
+[node name="TextureButton" type="TextureButton" parent="Panel/Market"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.8781
@@ -129,10 +130,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="HBoxContainer" parent="MainContainer"]
-margin_top = 568.0
-margin_right = 400.0
-margin_bottom = 700.0
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -132.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_vertical = 10
@@ -140,12 +142,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="VBoxContainer" parent="MainContainer/Buttons"]
+[node name="Buttons" type="VBoxContainer" parent="Buttons"]
 margin_right = 64.0
 margin_bottom = 132.0
 alignment = 1
 
-[node name="Again" type="TextureRect" parent="MainContainer/Buttons/Buttons"]
+[node name="Again" type="TextureRect" parent="Buttons/Buttons"]
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
@@ -153,7 +155,7 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Again" type="TextureButton" parent="MainContainer/Buttons/Buttons/Again"]
+[node name="Again" type="TextureButton" parent="Buttons/Buttons/Again"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -167,7 +169,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="MainContainer/Buttons/Buttons"]
+[node name="TextureRect2" type="TextureRect" parent="Buttons/Buttons"]
 margin_top = 68.0
 margin_right = 64.0
 margin_bottom = 132.0
@@ -176,7 +178,7 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Settings" type="TextureButton" parent="MainContainer/Buttons/Buttons/TextureRect2"]
+[node name="Settings" type="TextureButton" parent="Buttons/Buttons/TextureRect2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -190,19 +192,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Viewers" type="HBoxContainer" parent="MainContainer/Buttons"]
+[node name="Viewers" type="HBoxContainer" parent="Buttons"]
 margin_left = 68.0
 margin_right = 68.0
 margin_bottom = 132.0
 rect_clip_content = true
 
-[node name="Bottom" type="Control" parent="MainContainer"]
-visible = false
-margin_top = 520.0
-margin_right = 400.0
-margin_bottom = 700.0
-rect_clip_content = true
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
-[connection signal="pressed" from="MainContainer/Buttons/Buttons/Again/Again" to="." method="reload"]
-[connection signal="pressed" from="MainContainer/Buttons/Buttons/TextureRect2/Settings" to="." method="settings"]
+[node name="Back" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -8.878
+autoplay = true
+
+[node name="Coins" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="Pull" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+
+[node name="Tap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = -10.0
+
+[node name="Win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
+[node name="Build" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+volume_db = 7.0
+[connection signal="pressed" from="Buttons/Buttons/Again/Again" to="." method="reload"]
+[connection signal="pressed" from="Buttons/Buttons/TextureRect2/Settings" to="." method="settings"]
