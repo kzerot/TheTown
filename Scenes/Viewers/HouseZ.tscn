@@ -6,9 +6,10 @@
 
 [node name="Viewer" instance=ExtResource( 1 )]
 house = ExtResource( 3 )
+building = NodePath("Viewer/Viewport/Viewer/house_z")
 
 [node name="Camera" parent="Viewer/Viewport/Viewer" index="0"]
 transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 2, 4.39795, 1.63794 )
-size = 7.0
+size = 9.0
 
 [node name="house_z" parent="Viewer/Viewport/Viewer" index="1" instance=ExtResource( 2 )]

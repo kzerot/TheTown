@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/House.gd"
 }, {
+"base": "Spatial",
+"class": "Marker",
+"language": "GDScript",
+"path": "res://Scripts/Marker.gd"
+}, {
 "base": "GridMap",
 "class": "Terrain",
 "language": "GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "House": "",
+"Marker": "",
 "Terrain": ""
 }
 
@@ -29,6 +35,10 @@ _global_script_class_icons={
 config/name="TheTown"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Levels="*res://Scripts/Levels.gd"
 
 [display]
 
@@ -43,4 +53,5 @@ quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_clear_color=Color( 1, 1, 1, 1 )
+quality/filters/msaa=1
 environment/default_environment="res://default_env.tres"

@@ -3,7 +3,7 @@
 [ext_resource path="res://Scenes/Houses/Base.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/RawHouses/HouseH.tscn" type="PackedScene" id=2]
 
-[sub_resource type="ConcavePolygonShape" id=3]
+[sub_resource type="ConcavePolygonShape" id=1]
 data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
 
 [node name="House" instance=ExtResource( 1 )]
@@ -12,22 +12,22 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 
 [node name="house_g" parent="Visual" index="0" instance=ExtResource( 2 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.1, 0, 0.0347237 )
+transform = Transform( -0.920593, 0, -8.04808e-08, 0, 0.920593, 0, 8.04808e-08, 0, -0.920593, 0.890671, 0.000488281, -0.417446 )
 
 [node name="Collision" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Ray1" parent="Rays" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0 )

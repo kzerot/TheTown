@@ -5,14 +5,13 @@ var selected = null
 var camera
 var markers = []
 var field = {}
-export (NodePath) var n_viewer
 var viewers : HBoxContainer
 var click = 0
 var last_pos : Vector3
 
-func _ready() -> void:
+func init():
 	$DirectionalLight.shadow_enabled = !OS.has_feature('JavaScript')
-	viewers = get_node(n_viewer)
+
 	# Generate 5 markers
 	for i in 5:
 		var marker = preload("res://Scenes/Marker.tscn").instance()
@@ -44,22 +43,22 @@ func terrain_tapped(vec : Vector3, real: Vector3):
 	print("Global coordinates: ", real)
 
 
-func viewer_tap(h_inst: PackedScene, view) -> void:
-	if selected:
-		return
-	for c in $Houses.get_children():
-		if c.state != House.STATE.BUILT:
-			return
-	print("Viewer")
-	var house : House = h_inst.instance()
-	$Houses.add_child(house)
-	update_markers(house.markers_count())
-	view.queue_free()
-	to_grid(house, Vector3(0,0,0))
-	check(house)
-	house.connect("build", self, "build")
-	house.connect("built", self, "house_built")
-	house.start()
+#func viewer_tap(h_inst: PackedScene, view) -> void:
+#	if selected:
+#		return
+#	for c in $Houses.get_children():
+#		if c.state != House.STATE.BUILT:
+#			return
+#	print("Viewer")
+#	var house : House = h_inst.instance()
+#	$Houses.add_child(house)
+#	update_markers(house.markers_count())
+#	view.queue_free()
+#	to_grid(house, Vector3(0,0,0))
+#	check(house)
+#	house.connect("build", self, "build")
+#	house.connect("built", self, "house_built")
+#	house.start()
 
 func pick(mask=1):
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -71,10 +70,11 @@ func pick(mask=1):
 func house_built():
 	if viewers.get_child_count() == 0:
 		print("Win!")
-		return
+		return win()
 	var next = viewers.get_child(0)
 	var house : House = next.house.instance()
 	$Houses.add_child(house)
+	house.rotate_y(deg2rad(next.angle))
 	update_markers(house.markers_count())
 	to_grid(house, Vector3(0,0,0))
 	check(house)
@@ -83,6 +83,8 @@ func house_built():
 	house.start()
 	next.queue_free()
 
+func win():
+	return
 
 func build():
 	var position = terrain.world_to_map(selected.translation)
@@ -155,8 +157,11 @@ func check(force=null):
 		force.stop()
 		if force.can_build:
 			force.down()
+			markers[0].set_color(Marker.COLOR.BLUE)
+
 		else:
 			force.up()
+			markers[0].set_color(Marker.COLOR.RED)
 
 func can_build(force=null):
 	if not force:

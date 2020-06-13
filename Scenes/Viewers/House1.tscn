@@ -8,8 +8,9 @@
 margin_right = 46.0
 margin_bottom = 67.0
 house = ExtResource( 2 )
+building = NodePath("Viewer/Viewport/Viewer/house_cube")
 
 [node name="Camera" parent="Viewer/Viewport/Viewer" index="0"]
-transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 2, 3.19073, 2 )
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 2, 4.22208, 2 )
 
 [node name="house_cube" parent="Viewer/Viewport/Viewer" index="1" instance=ExtResource( 3 )]
