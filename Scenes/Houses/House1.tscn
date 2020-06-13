@@ -4,9 +4,5 @@
 [ext_resource path="res://Scenes/RawHouses/House1.tscn" type="PackedScene" id=2]
 
 [node name="House" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="Visual" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="house_cube" parent="Visual" index="0" instance=ExtResource( 2 )]
