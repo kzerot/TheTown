@@ -1,5 +1,6 @@
 extends StaticBody
 class_name House
+tool
 
 export (int) var level = 1
 signal build
@@ -10,13 +11,14 @@ enum STATE{
 	BUILT,
 	PREPARE
 }
-
+var colors : Array = [0,0,0,0]
 var rays : Array = []
 var can_build = false
 var field = {}
 const base_y = 0
 var state = STATE.DOWN
 onready var tween = $Tween
+
 func _ready() -> void:
 	rays = $Rays.get_children()
 	$AnimationPlayer.connect("animation_finished", self, "anim_end")
@@ -45,7 +47,14 @@ func get_collisions():
 		var pos = r.global_transform.origin
 		pos.y = 0
 		result.append(pos)
+
+
 	return result
+
+func set_colors(arr):
+	colors = arr
+	for c in $Visual.get_children():
+		Helper.set_mats(c, arr)
 
 func stop():
 	$Visual.translation = Vector3(0,base_y,0)

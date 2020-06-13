@@ -27,6 +27,8 @@ func load_level(i=-1):
 	game = res.scene
 	get_node(viewport).add_child(game)
 	game.viewers = get_node(viewers)
+	if "lines" in res:
+		game.lines = res.lines
 	game.init()
 	game.connect("win", self, "next_level")
 	game.connect("add_money", self, "add_money")
@@ -37,7 +39,7 @@ func add_money(c):
 
 func next_level():
 	Levels.current_level += 1
-	if Levels.current_level > 5:
+	if Levels.current_level > Levels.levels.size():
 		print("End of game, level 1")
 		Levels.current_level = 1
 	load_level()

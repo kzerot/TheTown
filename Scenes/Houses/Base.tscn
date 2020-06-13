@@ -71,6 +71,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
+Ray0 = NodePath("Rays/0")
 
 [node name="Visual" type="Spatial" parent="."]
 
@@ -80,7 +81,7 @@ shape = SubResource( 1 )
 
 [node name="Rays" type="Spatial" parent="."]
 
-[node name="Ray1" type="RayCast" parent="Rays"]
+[node name="0" type="RayCast" parent="Rays"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 cast_to = Vector3( 0, -10, 0 )
 

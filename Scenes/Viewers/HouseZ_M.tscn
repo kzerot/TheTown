@@ -1,16 +1,15 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Viewers/Viewer.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/RawHouses/HouseZ.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/RawHouses/HouseZ_M.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Houses/HouseZ_M.tscn" type="PackedScene" id=3]
 
 [node name="Viewer" instance=ExtResource( 1 )]
 house = ExtResource( 3 )
-building = NodePath("Viewer/Viewport/Viewer/house_z")
+building = NodePath("Viewer/Viewport/Viewer/houseZ_M")
 
 [node name="Camera" parent="Viewer/Viewport/Viewer" index="0"]
-transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 4.15744, 7.09293, 4.46411 )
-size = 9.0
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 4.15744, 7.46891, 4.46411 )
+size = 7.0
 
-[node name="house_z" parent="Viewer/Viewport/Viewer" index="1" instance=ExtResource( 2 )]
-transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="houseZ_M" parent="Viewer/Viewport/Viewer" index="1" instance=ExtResource( 2 )]

@@ -5,6 +5,8 @@ signal win
 
 var terrain : Terrain
 var selected = null
+var is_dragging = false
+var delta = Vector3()
 var camera
 var markers = []
 var field = {}
@@ -15,6 +17,7 @@ const particles_inst = preload("res://Scenes/Monets.tscn")
 var game_started = false
 var game_time = 0
 var figures_count = 0
+var lines = {}
 func init():
 	$DirectionalLight.shadow_enabled = !OS.has_feature('JavaScript')
 
@@ -93,6 +96,8 @@ func house_built():
 	house.connect("build", self, "build")
 	house.connect("built", self, "house_built")
 	house.start()
+	house.set_colors(next.colors)
+	selected = house
 	next.queue_free()
 
 func _ready() -> void:
@@ -107,6 +112,7 @@ func resize():
 
 
 func win():
+	count_lines(2)
 	game_started = false
 	var x = 1
 	var f_place_time = figures_count*2 + 1
@@ -134,15 +140,52 @@ func win():
 	yield(t, "timeout")
 	emit_signal("win")
 
+func count_lines(col):
+	for f in field:
+		print(field[f].values())
+	var width = field.size()
+	var height = field[field.keys()[0]].size()
+	var lines = 0
+	# Проверяем сначала  горизонтально, потом вертикально
+	for i in field:
+		print("Check row ", i)
+		var c = 0
+		for j in field[i]:
+			print("Values... ", field[i][j])
+			if field[i][j] != int(col):
+				print("Break")
+				break
+			c += 1
+		if c == height:
+			lines += 1
+			print("horizontal line")
+	print("->")
+	for j in field[field.keys()[0]]:
+		print("Check row ", j)
+		var c = 0
+		for i in field:
+			print("Values... ", field[i][j])
+			if field[i][j] != int(col):
+				print("Break")
+				break
+			c += 1
+		if c == width:
+			lines += 1
+			print("vertical line")
+	print("Found lines: ", lines)
+	return lines
+
 func build():
 	var position = terrain.world_to_map(selected.translation)
 	clamp_pos(position)
 	var can_build = can_build()
 	if can_build:
 		selected.build()
+		var i = 0
 		for c in selected.get_collisions():
 			var w = terrain.world_to_map(c)
-			field[int(w.x)][int(w.z)] = false
+			field[int(w.x)][int(w.z)] = selected.colors[i]
+			i += 1
 		update_markers(0)
 		terrain.cells_left -= selected.markers_count()
 	selected = null
@@ -153,53 +196,62 @@ func _input(event):
 	if (event is InputEventMouseButton):
 
 		if event.pressed:
-			var result = pick(3)
-			if result:
-				if result.collider == terrain:
-					var position = terrain.world_to_map(result.position)
-					terrain_tapped(position, result.position)
-				elif result.collider is House:
-					game_started = true
-					print(result.collider.name)
-					selected = result.collider
-					selected.stop()
-					selected.update_markers(markers)
-					click = 0
+			if selected:
+				var result = pick(4) # Floor
+				if result:
+					is_dragging = true
+					delta = selected.translation - result.position
+
+
+#			var result = pick(3)
+#			if result:
+#				if result.collider == terrain:
+#					var position = terrain.world_to_map(result.position)
+#					terrain_tapped(position, result.position)
+#				elif result.collider is House:
+#					game_started = true
+#					print(result.collider.name)
+#					selected = result.collider
+#					selected.stop()
+#					selected.update_markers(markers)
+#					click = 0
 		else:
-			var result_house = pick(2)
-			var result = pick(1)
+			is_dragging = false
+#			var result_house = pick(2)
+			var result = pick(4)
 			if selected:
 				selected.stop()
 #			if result_house and click <= 0.5 and result_house.collider is House and selected:
 #				selected.rotate_y(deg2rad(90))
 #				check()
-			if result and result.collider == terrain and selected:
-				var position = terrain.world_to_map(result.position)
+			if result and selected:
+				var position = terrain.world_to_map(result.position + delta)
 				clamp_pos(position)
-				terrain_tapped(position, result.position)
 				var can_build = can_build()
 				if can_build and selected.state != House.STATE.PREPARE:
 					selected.build()
+					var i = 0
 					for c in selected.get_collisions():
 						var w = terrain.world_to_map(c)
-						field[int(w.x)][int(w.z)] = false
+						field[int(w.x)][int(w.z)] = selected.colors[i]
+						i+=1
 					update_markers(0)
 				else:
 					check()
-			selected = null
+
 #	 or event is InputEventScreenDrag
 	elif event is InputEventMouseMotion:
-		if selected:
+		if selected and is_dragging:
 			var result = pick(1)
 			var floor_col = pick(4)
 			if result and result.collider == terrain:
-				var current_pos = to_grid(selected, result.position)
+				var current_pos = to_grid(selected, result.position + delta)
 				if last_pos != current_pos:
 					last_pos =  current_pos
 					click = 0
 					check()
 			elif floor_col:
-				var current_pos = to_grid(selected, floor_col.position)
+				var current_pos = to_grid(selected, floor_col.position + delta)
 				if last_pos != current_pos:
 					last_pos =  current_pos
 					click = 0
@@ -229,7 +281,7 @@ func can_build(force=null):
 		var a = int(w.x) in field
 		var b = int(w.z) in field[int(w.x)] if a else false
 
-		if not a or not b or not field[int(w.x)][int(w.z)]:
+		if not a or not b or field[int(w.x)][int(w.z)] >= 0:
 			force.can_build = false
 			return false
 	force.can_build = true
@@ -249,6 +301,6 @@ func to_grid(obj: Spatial, pos: Vector3):
 	return coor
 
 func clamp_pos(coor):
-	coor.x =  clamp(coor.x, terrain.min_x-1,  terrain.max_x)
-	coor.z =  clamp(coor.z, terrain.min_y-1,  terrain.max_y)
+	coor.x =  clamp(coor.x, terrain.min_x-1,  terrain.max_x+1)
+	coor.z =  clamp(coor.z, terrain.min_y-1,  terrain.max_y+1)
 	return coor

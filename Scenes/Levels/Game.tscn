@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Tiles/Terrain.meshlib" type="MeshLibrary" id=2]
 [ext_resource path="res://Scripts/Terrain.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/BackGrounds/Back1.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
@@ -12,7 +13,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh_library = ExtResource( 2 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 65533, 2, -1610612736, 65534, 2, 0, 65535, 2, 0, 0, 65533, 0, 1, 65533, 0, 2, 65533, 0, 65533, 65533, 0, 65534, 65533, 0, 65535, 65533, 0, 0, 65534, 0, 1, 65534, 0, 2, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, 0, 1, 65535, 0, 2, 65535, 0, 65533, 65535, 0, 65534, 65535, 0, 65535, 65535, -1610612736 )
+"cells": PoolIntArray( 0, 0, 0, 1, 0, -1610612736, 65534, 0, -1610612736, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 65534, 0, 1, 65534, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, 0, 1, 65535, -536870912, 65534, 65535, 0, 65535, 65535, 0 )
 }
 script = ExtResource( 3 )
 __meta__ = {
@@ -20,7 +21,7 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 6.66343, 12.1781, 6.70882 )
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 6.66343, 8.0011, 6.70882 )
 keep_aspect = 0
 projection = 1
 current = true
@@ -49,3 +50,8 @@ collision_mask = 4
 [node name="CollisionPolygon" type="CollisionPolygon" parent="Floor"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -0.257294, 0 )
 polygon = PoolVector2Array( -100, -100, 100, -100, 100, 100, -100, 100 )
+
+[node name="Back" type="Spatial" parent="."]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+
+[node name="meta" parent="Back" instance=ExtResource( 4 )]

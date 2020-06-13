@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Themes/Base.tres" type="Theme" id=2]
+[ext_resource path="res://Texture/back.png" type="Texture" id=3]
+[ext_resource path="res://Images/repeat.png" type="Texture" id=4]
 [ext_resource path="res://Images/ButtonFlip.png" type="Texture" id=5]
-[ext_resource path="res://Images/Money.png" type="Texture" id=6]
+[ext_resource path="res://Images/money.png" type="Texture" id=6]
 [ext_resource path="res://Images/Gear.png" type="Texture" id=7]
-[ext_resource path="res://Images/Again.png" type="Texture" id=8]
 [ext_resource path="res://Images/market.png" type="Texture" id=9]
 [ext_resource path="res://Images/ButtonLeftSmal.png" type="Texture" id=10]
 [ext_resource path="res://Images/Button.png" type="Texture" id=11]
@@ -20,6 +21,15 @@ __meta__ = {
 }
 viewport = NodePath("GameWindow/Viewport")
 viewers = NodePath("MainContainer/Buttons/Viewers")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GameWindow" type="ViewportContainer" parent="."]
 anchor_right = 1.0
@@ -150,7 +160,7 @@ margin_left = 11.0
 margin_top = 11.0
 margin_right = -10.0
 margin_bottom = -10.0
-texture_normal = ExtResource( 8 )
+texture_normal = ExtResource( 4 )
 expand = true
 stretch_mode = 5
 __meta__ = {

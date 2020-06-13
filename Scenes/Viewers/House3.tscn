@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Viewers/Viewer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/RawHouses/House3.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Houses/House3.tscn" type="PackedScene" id=3]
+
+[node name="Viewer" instance=ExtResource( 1 )]
+margin_right = 46.0
+margin_bottom = 67.0
+house = ExtResource( 3 )
+building = NodePath("Viewer/Viewport/Viewer/house3")
+
+[node name="Camera" parent="Viewer/Viewport/Viewer" index="0"]
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 1.34736, 4.22208, 2 )
+size = 7.0
+
+[node name="house3" parent="Viewer/Viewport/Viewer" index="1" instance=ExtResource( 2 )]

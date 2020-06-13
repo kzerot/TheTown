@@ -33,6 +33,6 @@ func build_field():
 	for x in range(min_x, max_x+1):
 		result[int(x)] = {}
 		for y in range(min_y, max_y+1):
-			result[int(x)][int(y)] = true
+			result[int(x)][int(y)] = -1 # Не построено ничего
 
 	return result

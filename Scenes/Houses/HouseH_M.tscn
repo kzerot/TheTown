@@ -12,33 +12,33 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 
 [node name="houseH_M" parent="Visual" index="0" instance=ExtResource( 2 )]
-transform = Transform( 0.862358, 0, 0, 0, 0.862358, 0, 0, 0, 0.862358, -0.761835, 0.000976562, -0.418804 )
+transform = Transform( 0.993051, 0, 0, 0, 0.993051, 0, 0, 0, 0.993051, 0.397046, 0, 0.840804 )
 
 [node name="Collision" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2 )
 shape = SubResource( 1 )
 
-[node name="Ray1" parent="Rays" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0 )
+[node name="0" parent="Rays" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 2 )
 
-[node name="RayCast" type="RayCast" parent="Rays" index="1"]
+[node name="RayCast3" type="RayCast" parent="Rays" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 cast_to = Vector3( 0, -10, 0 )
 
 [node name="RayCast2" type="RayCast" parent="Rays" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2 )
 cast_to = Vector3( 0, -10, 0 )
 
-[node name="RayCast3" type="RayCast" parent="Rays" index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2 )
+[node name="RayCast" type="RayCast" parent="Rays" index="3"]
 cast_to = Vector3( 0, -10, 0 )

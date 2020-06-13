@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.s3tc.stex"
+path.etc2="res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.etc2.stex"
 path.etc="res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Texture/blue_texture.png"
-dest_files=[ "res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.s3tc.stex", "res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.etc.stex" ]
+dest_files=[ "res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.s3tc.stex", "res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.etc2.stex", "res://.import/blue_texture.png-ea43409b798796a33a26bc8f12245331.etc.stex" ]
 
 [params]
 

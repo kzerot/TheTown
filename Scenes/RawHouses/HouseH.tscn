@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Models/blue_texture.material" type="Material" id=1]
-[ext_resource path="res://Models/houseH.glb" type="PackedScene" id=2]
+[ext_resource path="res://Models/houseH.glb" type="PackedScene" id=1]
+[ext_resource path="res://Models/red_texture.material" type="Material" id=2]
+[ext_resource path="res://Models/blue_texture.material" type="Material" id=3]
+[ext_resource path="res://Models/yellow_texture.material" type="Material" id=4]
+[ext_resource path="res://Models/green_texture.material" type="Material" id=5]
 
-[node name="houseH" instance=ExtResource( 2 )]
+[node name="houseH" instance=ExtResource( 1 )]
 
-[node name="house_g" parent="." index="0"]
-transform = Transform( 1.19249e-08, 0, 1, 0, 1, 0, -1, 0, 1.19249e-08, 0, 1.82025, 0 )
-material/0 = ExtResource( 1 )
+[node name="house_J_4" parent="." index="0"]
+transform = Transform( 0.913442, 2.97637e-07, 0, -2.97637e-07, 0.913442, 0, 0, 0, -0.913442, 0, 1.67692, 0 )
+material/0 = ExtResource( 5 )
+material/1 = ExtResource( 3 )
+material/2 = ExtResource( 2 )
+material/3 = ExtResource( 4 )

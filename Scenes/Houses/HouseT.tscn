@@ -9,7 +9,7 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 [node name="House" instance=ExtResource( 1 )]
 
 [node name="houseT" parent="Visual" index="0" instance=ExtResource( 2 )]
-transform = Transform( 0.567718, 0, 0, 0, 0.567718, 0, 0, 0, 0.567718, 0, 0, 1.10704 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.340402, 0, 0.581109 )
 
 [node name="Collision" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0 )
@@ -26,16 +26,16 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
 shape = SubResource( 1 )
 
-[node name="Ray1" parent="Rays" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0 )
-
-[node name="RayCast" type="RayCast" parent="Rays" index="1"]
-cast_to = Vector3( 0, -10, 0 )
-
-[node name="RayCast2" type="RayCast" parent="Rays" index="2"]
+[node name="RayCast2" type="RayCast" parent="Rays" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 cast_to = Vector3( 0, -10, 0 )
 
-[node name="RayCast3" type="RayCast" parent="Rays" index="3"]
+[node name="RayCast3" type="RayCast" parent="Rays" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
 cast_to = Vector3( 0, -10, 0 )
+
+[node name="RayCast" type="RayCast" parent="Rays" index="2"]
+cast_to = Vector3( 0, -10, 0 )
+
+[node name="0" parent="Rays" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0 )
