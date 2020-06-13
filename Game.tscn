@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
+[ext_resource path="res://Themes/Base.tres" type="Theme" id=2]
 [ext_resource path="res://Images/ButtonFlip.png" type="Texture" id=5]
 [ext_resource path="res://Images/Money.png" type="Texture" id=6]
 [ext_resource path="res://Images/Gear.png" type="Texture" id=7]
@@ -12,16 +13,34 @@
 [node name="Game" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-viewport = NodePath("MainContainer/GameWindow/Viewport")
-viewers = NodePath("MainContainer/Bottom/Buttons/Viewers")
+viewport = NodePath("GameWindow/Viewport")
+viewers = NodePath("MainContainer/Buttons/Viewers")
+
+[node name="GameWindow" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="GameWindow"]
+size = Vector2( 400, 700 )
+transparent_bg = true
+handle_input_locally = false
+msaa = 1
+render_target_update_mode = 3
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,6 +48,7 @@ __meta__ = {
 [node name="Panel" type="HBoxContainer" parent="MainContainer"]
 margin_right = 400.0
 margin_bottom = 64.0
+mouse_filter = 2
 
 [node name="Money" type="Control" parent="MainContainer/Panel"]
 margin_right = 164.0
@@ -48,12 +68,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="MainContainer/Panel/Money/Panel"]
+[node name="Count" type="Label" parent="MainContainer/Panel/Money/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "200000"
+margin_top = 2.0
+margin_bottom = 2.0
+text = "0"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextureRect" type="TextureRect" parent="MainContainer/Panel/Money"]
 anchor_right = 1.0
@@ -94,55 +119,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GameWindow" type="ViewportContainer" parent="MainContainer"]
-margin_top = 68.0
-margin_right = 400.0
-margin_bottom = 516.0
-size_flags_vertical = 3
-stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Viewport" type="Viewport" parent="MainContainer/GameWindow"]
-size = Vector2( 400, 448 )
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="Bottom" type="Control" parent="MainContainer"]
-margin_top = 520.0
+[node name="Buttons" type="HBoxContainer" parent="MainContainer"]
+margin_top = 568.0
 margin_right = 400.0
 margin_bottom = 700.0
 rect_clip_content = true
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
-
-[node name="Buttons" type="HBoxContainer" parent="MainContainer/Bottom"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 465.0
-margin_bottom = 183.0
-rect_clip_content = true
+mouse_filter = 2
+size_flags_vertical = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="VBoxContainer" parent="MainContainer/Bottom/Buttons"]
+[node name="Buttons" type="VBoxContainer" parent="MainContainer/Buttons"]
 margin_right = 64.0
-margin_bottom = 176.0
+margin_bottom = 132.0
 alignment = 1
 
-[node name="Again" type="TextureRect" parent="MainContainer/Bottom/Buttons/Buttons"]
-margin_top = 22.0
+[node name="Again" type="TextureRect" parent="MainContainer/Buttons/Buttons"]
 margin_right = 64.0
-margin_bottom = 86.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Again" type="TextureButton" parent="MainContainer/Bottom/Buttons/Buttons/Again"]
+[node name="Again" type="TextureButton" parent="MainContainer/Buttons/Buttons/Again"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -156,16 +157,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="MainContainer/Bottom/Buttons/Buttons"]
-margin_top = 90.0
+[node name="TextureRect2" type="TextureRect" parent="MainContainer/Buttons/Buttons"]
+margin_top = 68.0
 margin_right = 64.0
-margin_bottom = 154.0
+margin_bottom = 132.0
 rect_min_size = Vector2( 64, 64 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Settings" type="TextureButton" parent="MainContainer/Bottom/Buttons/Buttons/TextureRect2"]
+[node name="Settings" type="TextureButton" parent="MainContainer/Buttons/Buttons/TextureRect2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -179,10 +180,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Viewers" type="HBoxContainer" parent="MainContainer/Bottom/Buttons"]
+[node name="Viewers" type="HBoxContainer" parent="MainContainer/Buttons"]
 margin_left = 68.0
 margin_right = 68.0
-margin_bottom = 176.0
+margin_bottom = 132.0
 rect_clip_content = true
-[connection signal="pressed" from="MainContainer/Bottom/Buttons/Buttons/Again/Again" to="." method="reload"]
-[connection signal="pressed" from="MainContainer/Bottom/Buttons/Buttons/TextureRect2/Settings" to="." method="settings"]
+
+[node name="Bottom" type="Control" parent="MainContainer"]
+visible = false
+margin_top = 520.0
+margin_right = 400.0
+margin_bottom = 700.0
+rect_clip_content = true
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+[connection signal="pressed" from="MainContainer/Buttons/Buttons/Again/Again" to="." method="reload"]
+[connection signal="pressed" from="MainContainer/Buttons/Buttons/TextureRect2/Settings" to="." method="settings"]

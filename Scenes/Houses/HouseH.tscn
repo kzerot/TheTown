@@ -12,7 +12,7 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 
 [node name="house_g" parent="Visual" index="0" instance=ExtResource( 2 )]
-transform = Transform( -0.920593, 0, -8.04808e-08, 0, 0.920593, 0, 8.04808e-08, 0, -0.920593, 0.890671, 0.000488281, -0.417446 )
+transform = Transform( 0.920593, 0, 0, 0, 0.920593, 0, 0, 0, 0.920593, 0.890671, 0.000488281, -0.417446 )
 
 [node name="Collision" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0 )

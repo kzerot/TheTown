@@ -7,13 +7,20 @@ var min_x = 10000
 var min_y = 10000
 var max_x = -10000
 var max_y = -10000
-
+var cells_left = 0
 func _ready() -> void:
 	pass # Replace with function body.
+
+func get_all():
+	var res = []
+	for el in get_used_cells():
+		res.append(map_to_world(el.x, el.y, el.z))
+	return res
 
 func build_field():
 	var result = {}
 	for el in get_used_cells():
+		cells_left += 1
 		if el.x > max_x:
 			max_x = el.x
 		elif el.x < min_x:

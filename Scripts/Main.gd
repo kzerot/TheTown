@@ -28,8 +28,19 @@ func load_level(i=-1):
 	get_node(viewport).add_child(game)
 	game.viewers = get_node(viewers)
 	game.init()
+	game.connect("win", self, "next_level")
+	game.connect("add_money", self, "add_money")
 
+func add_money(c):
+	$MainContainer/Panel/Money/Panel/Count.text = \
+		str (int($MainContainer/Panel/Money/Panel/Count.text) + c)
 
+func next_level():
+	Levels.current_level += 1
+	if Levels.current_level > 5:
+		print("End of game, level 1")
+		Levels.current_level = 1
+	load_level()
 func reload() -> void:
 	load_level()
 

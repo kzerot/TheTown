@@ -1,5 +1,8 @@
 extends Spatial
 
+signal add_money(howmuch)
+signal win
+
 var terrain : Terrain
 var selected = null
 var camera
@@ -8,7 +11,10 @@ var field = {}
 var viewers : HBoxContainer
 var click = 0
 var last_pos : Vector3
-
+const particles_inst = preload("res://Scenes/Monets.tscn")
+var game_started = false
+var game_time = 0
+var figures_count = 0
 func init():
 	$DirectionalLight.shadow_enabled = !OS.has_feature('JavaScript')
 
@@ -23,10 +29,14 @@ func init():
 	terrain = $Terrain
 	field = terrain.build_field()
 	terrain.connect("tapped", self, "terrain_tapped")
+	figures_count = viewers.get_child_count()
 #	if viewers.get_child_count() > 0:
 #	for i in viewers.get_child_count():
 #		viewers.get_child(i).connect("pressed", self, "viewer_tap", [viewers.get_child(i)])
 	house_built()
+
+func calc_places():
+	var figures_count = viewers.get_child_count()
 
 func _process(delta: float) -> void:
 	if selected:
@@ -37,6 +47,8 @@ func _process(delta: float) -> void:
 #				last_pos == terrain.world_to_map(selected.translation):
 #			selected.prepare()
 #			print("prepare")
+	if game_started:
+		game_time += delta
 
 func terrain_tapped(vec : Vector3, real: Vector3):
 	print("Terrain coordinates: ", vec)
@@ -83,8 +95,44 @@ func house_built():
 	house.start()
 	next.queue_free()
 
+func _ready() -> void:
+	get_tree().connect("screen_resized", self, "resize")
+	resize()
+
+func resize():
+	for i in 3:
+		yield(get_tree().create_timer(0.1),"timeout")
+		var s  = get_viewport().size
+		$Camera.keep_aspect = Camera.KEEP_HEIGHT  if s.x > s.y else  Camera.KEEP_WIDTH
+
+
 func win():
-	return
+	game_started = false
+	var x = 1
+	var f_place_time = figures_count*2 + 1
+	if f_place_time >= game_time:
+		# 1 place
+		x = 4
+	elif f_place_time * 1.5 >= game_time:
+		x = 3
+	elif f_place_time * 1.5 * 1.5 >= game_time:
+		x = 2
+	var particles_arr = []
+	for cell in terrain.get_all():
+		var particles = particles_inst.instance()
+		add_child(particles)
+		particles.translation = cell
+		particles.fire(1*x)
+		emit_signal("add_money", 1*x)
+		var t = get_tree().create_timer(0.2)
+		yield(t, "timeout")
+
+	for p in particles_arr:
+		p.queue_free()
+
+	var t = get_tree().create_timer(0.5)
+	yield(t, "timeout")
+	emit_signal("win")
 
 func build():
 	var position = terrain.world_to_map(selected.translation)
@@ -96,6 +144,7 @@ func build():
 			var w = terrain.world_to_map(c)
 			field[int(w.x)][int(w.z)] = false
 		update_markers(0)
+		terrain.cells_left -= selected.markers_count()
 	selected = null
 
 # warning-ignore:unused_argument
@@ -110,6 +159,7 @@ func _input(event):
 					var position = terrain.world_to_map(result.position)
 					terrain_tapped(position, result.position)
 				elif result.collider is House:
+					game_started = true
 					print(result.collider.name)
 					selected = result.collider
 					selected.stop()
@@ -141,8 +191,15 @@ func _input(event):
 	elif event is InputEventMouseMotion:
 		if selected:
 			var result = pick(1)
+			var floor_col = pick(4)
 			if result and result.collider == terrain:
 				var current_pos = to_grid(selected, result.position)
+				if last_pos != current_pos:
+					last_pos =  current_pos
+					click = 0
+					check()
+			elif floor_col:
+				var current_pos = to_grid(selected, floor_col.position)
 				if last_pos != current_pos:
 					last_pos =  current_pos
 					click = 0
@@ -192,6 +249,6 @@ func to_grid(obj: Spatial, pos: Vector3):
 	return coor
 
 func clamp_pos(coor):
-	coor.x =  clamp(coor.x, terrain.min_x,  terrain.max_x)
-	coor.z =  clamp(coor.z, terrain.min_y,  terrain.max_y)
+	coor.x =  clamp(coor.x, terrain.min_x-1,  terrain.max_x)
+	coor.z =  clamp(coor.z, terrain.min_y-1,  terrain.max_y)
 	return coor

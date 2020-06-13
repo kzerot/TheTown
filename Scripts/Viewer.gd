@@ -12,4 +12,4 @@ func _gui_input(event: InputEvent) -> void:
 
 func init():
 	if building:
-		get_node(building).rotate_y(deg2rad(angle+180))
+		get_node(building).rotate_y(deg2rad(angle))

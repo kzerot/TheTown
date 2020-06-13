@@ -5,4 +5,4 @@
 [node name="houseZ" instance=ExtResource( 1 )]
 
 [node name="house_z" parent="." index="0"]
-transform = Transform( -1, 0, -3.25759e-05, 0, 1, 0, 3.25759e-05, 0, -1, 0, 1.76392, 0 )
+transform = Transform( 0.992546, 0, 0.121869, 0, 1, 0, -0.121869, 0, 0.992546, 0, 1.76392, 0 )

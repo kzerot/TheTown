@@ -47,6 +47,10 @@ window/size/height=700
 window/vsync/use_vsync=false
 window/handheld/orientation="portrait"
 
+[gui]
+
+theme/custom_font="res://Fonts/Base.tres"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
