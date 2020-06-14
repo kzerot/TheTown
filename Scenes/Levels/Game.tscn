@@ -13,7 +13,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh_library = ExtResource( 2 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, -1610612736, 1, 0, 0, 65534, 0, -1610612736, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 65534, 0, 1, 65534, -536870912, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, 0, 1, 65535, 0, 65534, 65535, 0, 65535, 65535, 0 )
+"cells": PoolIntArray( 0, 0, 0, 1, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 65534, 0, 1, 65534, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, 0, 1, 65535, 0, 65534, 65535, 0, 65535, 65535, 0 )
 }
 script = ExtResource( 3 )
 __meta__ = {
@@ -42,7 +42,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -0.2
 polygon = PoolVector2Array( -100, -100, 100, -100, 100, 100, -100, 100 )
 
 [node name="Back" type="Spatial" parent="."]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.185303, 0 )
 
 [node name="meta0" parent="Back" instance=ExtResource( 4 )]
 

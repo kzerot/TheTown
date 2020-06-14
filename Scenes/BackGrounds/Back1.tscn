@@ -5,4 +5,4 @@
 [node name="meta" instance=ExtResource( 1 )]
 
 [node name="Cube024" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.899496, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0364498, 0 )

@@ -6,7 +6,7 @@ export (NodePath) var viewers
 signal swipe(s)
 var game = null
 var money = 0
-var current_back = "Back1"
+var current_back = "Back0"
 func _ready() -> void:
 	load_level()
 
