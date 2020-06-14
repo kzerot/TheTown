@@ -7,7 +7,7 @@
 
 [node name="Terrain" parent="." index="0"]
 data = {
-"cells": PoolIntArray( 0, 0, 0, 1, 0, -536870912, 65535, 0, 0, 0, 1, 0, 1, 1, 536870912, 65535, 1, 536870912, 0, 65534, 536870912, 1, 65534, 536870912, 65535, 65534, 536870912, 0, 65535, 536870912, 1, 65535, 0, 65535, 65535, 536870912 )
+"cells": PoolIntArray( 0, 0, 0, 1, 0, 0, 65535, 0, 0, 0, 1, 0, 1, 1, 536870912, 65535, 1, 536870912, 0, 65534, 536870912, 1, 65534, 0, 65535, 65534, 536870912, 0, 65535, 536870912, 1, 65535, 0, 65535, 65535, 536870912 )
 }
 
 [node name="Camera" parent="." index="1"]
@@ -18,7 +18,7 @@ size = 11.0
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0.859847, 0, 0 )
 
 [node name="House" parent="Decor" index="0" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.940256, 0.000732422, 2.93565 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.940256, 0, 2.93565 )
 decor = true
 
 [node name="House2" parent="Decor" index="1" instance=ExtResource( 2 )]

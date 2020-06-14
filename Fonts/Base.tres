@@ -3,5 +3,5 @@
 [ext_resource path="res://Fonts/KurriIslandPERSONAL-Regular.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 28
+size = 32
 font_data = ExtResource( 1 )

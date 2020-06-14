@@ -216,7 +216,9 @@ func build(force = null):
 		update_markers(0)
 		terrain.cells_left -= force.markers_count()
 	force = null
-
+func stop(st):
+	set_process_unhandled_input(!st)
+	set_process(!st)
 # warning-ignore:unused_argument
 func _unhandled_input(event):
 #	event is InputEventScreenTouch or
@@ -319,6 +321,12 @@ func can_build(force=null):
 func update_markers(count):
 	for i in markers.size():
 		markers[i].visible = i < count
+
+func change_back(path):
+	var back = load("res://Scenes/BackGrounds/%s.tscn" % path).instance()
+	for b in $Back.get_children():
+		b.queue_free()
+	$Back.add_child(back)
 
 func to_grid(obj: Spatial, pos: Vector3):
 	var coor = terrain.world_to_map(pos)

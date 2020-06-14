@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Fonts/Big.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Images/money.png" type="Texture" id=2]
+[ext_resource path="res://Images/meta1.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/ShopEnvirop.gd" type="Script" id=4]
+
+[node name="Item" type="TextureButton" groups=[
+"shop_env",
+]]
+margin_right = 167.0
+margin_bottom = 168.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Money" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.88835
+margin_top = 119.318
+margin_right = -121.112
+margin_bottom = -7.6817
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Count" type="Label" parent="Money"]
+anchor_left = 1.0
+anchor_right = 3.854
+anchor_bottom = 1.0
+margin_right = -0.0140076
+margin_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Build" type="Label" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 119.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.843137, 0.984314, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "USE"
+align = 1
+valign = 1
+[connection signal="resized" from="." to="." method="resized"]

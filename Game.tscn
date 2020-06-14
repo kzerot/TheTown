@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Themes/Base.tres" type="Theme" id=2]
@@ -18,6 +18,10 @@
 [ext_resource path="res://Sound/building.wav" type="AudioStream" id=16]
 [ext_resource path="res://Images/sound_off.png" type="Texture" id=17]
 [ext_resource path="res://Images/sound_on.png" type="Texture" id=18]
+[ext_resource path="res://Scenes/BackGround.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Images/meta4.png" type="Texture" id=20]
+[ext_resource path="res://Images/meta2.png" type="Texture" id=21]
+[ext_resource path="res://Images/meta3.png" type="Texture" id=22]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ViewportContainer
@@ -182,7 +186,8 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -132.0
+margin_top = -137.0
+margin_bottom = -5.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_vertical = 10
@@ -267,6 +272,81 @@ stream = ExtResource( 13 )
 [node name="Build" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 volume_db = 7.0
+
+[node name="CloseController" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shop" type="Control" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 700.0
+margin_bottom = 399.0
+rect_min_size = Vector2( 400, 400 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="ColorRect" parent="Shop"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.513726, 0.698039, 0.447059, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shop" type="GridContainer" parent="Shop"]
+anchor_left = 0.5
+anchor_top = 0.034
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -169.0
+margin_top = 15.434
+margin_right = 169.0
+margin_bottom = -29.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Item1" parent="Shop/Shop" instance=ExtResource( 19 )]
+texture_normal = ExtResource( 20 )
+pursuased = true
+asset = "Back0"
+
+[node name="Item2" parent="Shop/Shop" instance=ExtResource( 19 )]
+margin_left = 171.0
+margin_right = 338.0
+gold = 100
+asset = "Back1"
+
+[node name="Item3" parent="Shop/Shop" instance=ExtResource( 19 )]
+margin_top = 172.0
+margin_bottom = 340.0
+texture_normal = ExtResource( 21 )
+gold = 200
+asset = "Back2"
+
+[node name="Item4" parent="Shop/Shop" instance=ExtResource( 19 )]
+margin_left = 171.0
+margin_top = 172.0
+margin_right = 338.0
+margin_bottom = 340.0
+texture_normal = ExtResource( 22 )
+gold = 300
+asset = "back3"
+
+[node name="ShopTween" type="Tween" parent="."]
+pause_mode = 2
+[connection signal="resized" from="." to="." method="resized"]
 [connection signal="toggled" from="Sound/Sound" to="." method="toggle_sound"]
+[connection signal="pressed" from="Panel/Market/TextureButton" to="." method="show_show"]
 [connection signal="pressed" from="Buttons/Buttons/Again/Again" to="." method="reload"]
 [connection signal="pressed" from="Buttons/Buttons/TextureRect2/Settings" to="." method="settings"]
+[connection signal="gui_input" from="CloseController" to="." method="should_close"]
+[connection signal="tween_all_completed" from="ShopTween" to="." method="shop_change"]

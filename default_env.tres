@@ -5,6 +5,7 @@
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
-ambient_light_energy = 1.26
+ambient_light_energy = 2.98
+ambient_light_sky_contribution = 0.4
 adjustment_enabled = true
 adjustment_saturation = 1.14

@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Tiles/Terrain.meshlib" type="MeshLibrary" id=2]
 [ext_resource path="res://Scripts/Terrain.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/BackGrounds/Back1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/BackGrounds/Back0.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
@@ -13,7 +13,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh_library = ExtResource( 2 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, -1610612736, 1, 0, -1610612736, 65534, 0, 0, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 65534, 1, 0, 65535, 1, -536870912, 0, 65534, 0, 1, 65534, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, 0, 1, 65535, 0, 65534, 65535, 0, 65535, 65535, 0 )
+"cells": PoolIntArray( 0, 0, -1610612736, 1, 0, 0, 65534, 0, -1610612736, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 65534, 0, 1, 65534, -536870912, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, 0, 1, 65535, 0, 65534, 65535, 0, 65535, 65535, 0 )
 }
 script = ExtResource( 3 )
 __meta__ = {
@@ -44,6 +44,6 @@ polygon = PoolVector2Array( -100, -100, 100, -100, 100, 100, -100, 100 )
 [node name="Back" type="Spatial" parent="."]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 
-[node name="meta" parent="Back" instance=ExtResource( 4 )]
+[node name="meta0" parent="Back" instance=ExtResource( 4 )]
 
 [node name="Decor" type="Spatial" parent="."]

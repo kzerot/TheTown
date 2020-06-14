@@ -1,6 +1,6 @@
 extends Node
 
-var current_level = 6
+var current_level = 1
 
 const levels = {
 	1: {
