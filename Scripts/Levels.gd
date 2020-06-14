@@ -1,6 +1,6 @@
 extends Node
 
-var current_level = 1
+var current_level = 6
 
 const levels = {
 	1: {
@@ -26,9 +26,31 @@ const levels = {
 			3: 1
 		}
 	},
-
-
 	4: {
+		"scene": "3x3",
+		"figures": ["2:0","1_A:0:2", "2:90", "1_A:0", "L:90:2,2,0"],
+		"lines": {
+			2: 1
+		}
+	},
+
+	5: {
+		"scene": "4x3",
+		"figures": ["H:0","T:-90:0,3,3,3", "T:180:0,0,0,3"],
+		"lines": {
+			3: 1
+		}
+	},
+
+	6: {
+		"scene": "4x3lvl6",
+		"figures": ["H:-90","T:-90:3,0,3,0", "2:-90:3,0"],
+		"lines": {
+			3: 1
+		}
+	},
+
+	7: {
 		"scene": "3x4lvl7",
 		"figures": ["H:270:1,0,1,1","H:90:0,0,0,0", "3:90:1,0,0,0"],
 		"lines": {
@@ -38,6 +60,8 @@ const levels = {
 }
 
 func get_scene(lvl=1):
+	if not lvl in levels.keys():
+		lvl = 1
 	var scene = load("res://Scenes/Levels/Game%s.tscn" % levels[lvl].scene).instance()
 	var figures = levels[lvl].figures
 	var buildings = []
