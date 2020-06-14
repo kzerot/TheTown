@@ -324,14 +324,14 @@ asset = "Back0"
 margin_left = 171.0
 margin_right = 338.0
 gold = 100
-asset = "Back1"
+asset = "Back2"
 
 [node name="Item3" parent="Shop/Shop" instance=ExtResource( 19 )]
 margin_top = 172.0
 margin_bottom = 340.0
 texture_normal = ExtResource( 21 )
 gold = 200
-asset = "Back2"
+asset = "Back1"
 
 [node name="Item4" parent="Shop/Shop" instance=ExtResource( 19 )]
 margin_left = 171.0
