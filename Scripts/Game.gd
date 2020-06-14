@@ -19,6 +19,7 @@ var game_started = false
 var game_time = 0
 var figures_count = 0
 var lines = {}
+var camera_zoom = 1
 func init():
 	if has_node("DirectionalLight"):
 		$DirectionalLight.shadow_enabled = !OS.has_feature('JavaScript')
@@ -35,6 +36,10 @@ func init():
 	field = terrain.build_field()
 	terrain.connect("tapped", self, "terrain_tapped")
 	figures_count = viewers.get_child_count()
+
+	for d in $Decor.get_children():
+		d.decor = true
+		build(d)
 #	if viewers.get_child_count() > 0:
 #	for i in viewers.get_child_count():
 #		viewers.get_child(i).connect("pressed", self, "viewer_tap", [viewers.get_child(i)])
@@ -92,6 +97,7 @@ func house_built():
 		return win()
 	var next = viewers.get_child(0)
 	var house : House = next.house.instance()
+	house.decor = false
 	$Houses.add_child(house)
 	house.rotate_y(deg2rad(next.angle))
 	update_markers(house.markers_count())
@@ -105,6 +111,7 @@ func house_built():
 	next.queue_free()
 
 func _ready() -> void:
+	camera_zoom = $Camera.size
 	get_tree().connect("screen_resized", self, "resize")
 	resize()
 
@@ -112,8 +119,12 @@ func resize():
 	for i in 3:
 		yield(get_tree().create_timer(0.1),"timeout")
 		var s  = get_viewport().size
-		$Camera.keep_aspect = Camera.KEEP_HEIGHT  if s.x > s.y else  Camera.KEEP_WIDTH
-
+		if s.x > s.y * 0.8:
+			$Camera.keep_aspect = Camera.KEEP_HEIGHT
+			$Camera.size = camera_zoom * 1.5
+		else:
+			$Camera.keep_aspect =   Camera.KEEP_WIDTH
+			$Camera.size = camera_zoom
 
 func win():
 	var is_win = true
@@ -134,9 +145,11 @@ func win():
 		for cell in terrain.get_all():
 			var particles = particles_inst.instance()
 			add_child(particles)
-			particles.translation = cell.global
+			particles.translation = cell.global + Vector3(1,0,1)
 			var color = field[int(cell.local.x)][int(cell.local.z)]
-			var price = 1 if color <= 0 else 4
+			var price = 1 if color <= 0 else \
+				(4 if color < 99 else 0)
+
 			particles.fire(price*x)
 			emit_signal("add_money", price*x)
 			emit_signal("sound", "Coins")
@@ -187,20 +200,22 @@ func count_lines(col):
 	print("Found lines: ", lines)
 	return lines
 
-func build():
-	var position = terrain.world_to_map(selected.translation)
+func build(force = null):
+	if not force:
+		force = selected
+	var position = terrain.world_to_map(force.translation)
 	clamp_pos(position)
-	var can_build = can_build()
+	var can_build = can_build(force)
 	if can_build:
-		selected.build()
+		force.build()
 		var i = 0
-		for c in selected.get_collisions():
+		for c in force.get_collisions():
 			var w = terrain.world_to_map(c)
-			field[int(w.x)][int(w.z)] = selected.colors[i]
+			field[int(w.x)][int(w.z)] = force.colors[i]
 			i += 1
 		update_markers(0)
-		terrain.cells_left -= selected.markers_count()
-	selected = null
+		terrain.cells_left -= force.markers_count()
+	force = null
 
 # warning-ignore:unused_argument
 func _unhandled_input(event):

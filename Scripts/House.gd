@@ -18,11 +18,37 @@ var field = {}
 const base_y = 0
 var state = STATE.DOWN
 onready var tween = $Tween
+export (bool) var decor = true setget set_decor
+
+func set_decor(b):
+	decor = b
+	if has_node("Visual"):
+		if b:
+			colors = [99,99,99,99]
+			state = STATE.BUILT
+			$Visual.translation.y = 0
+			translation.y = 0
+		else:
+			colors = [1,2,3,4]
+			state = STATE.DOWN
+			translation.y = 1
+		print(colors)
+		for blds in $Visual.get_children():
+			for bld in  blds.get_children():
+				if bld is MeshInstance:
+					if b:
+						bld.material_override = preload("res://Models/gray_texture.material")
+					else:
+						bld.material_override = null
 
 func _ready() -> void:
 	rays = $Rays.get_children()
 	$AnimationPlayer.connect("animation_finished", self, "anim_end")
-	translation.y = 1
+	if decor:
+		$Visual.translation.y = 0
+		translation.y = 0
+	else:
+		translation.y = 1
 
 func prepare():
 	state = STATE.PREPARE
@@ -67,11 +93,12 @@ func start():
 	$AnimationPlayer.play("Start")
 
 func build():
-	$AnimationPlayer.play("Build")
 	collision_layer= 0
-	state = STATE.BUILT
-	var t = get_tree().create_timer(0.3)
-	t.connect("timeout", self, "emit_signal", ["built"])
+	if not decor:
+		$AnimationPlayer.play("Build")
+		state = STATE.BUILT
+		var t = get_tree().create_timer(0.3)
+		t.connect("timeout", self, "emit_signal", ["built"])
 
 func update_markers(markers):
 	for i in $Rays.get_child_count():

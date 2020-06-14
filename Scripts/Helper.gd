@@ -1,7 +1,7 @@
 extends Node
 
 enum COLOR{
-	WHITE, BLUE, RED, YELLOW, GREEN
+	WHITE, GREEN, BLUE, RED, YELLOW, GRAY=99
 }
 
 var mats = {
@@ -9,8 +9,8 @@ var mats = {
 	COLOR.BLUE: preload("res://Models/blue_texture.material"),
 	COLOR.RED: preload("res://Models/red_texture.material"),
 	COLOR.YELLOW: preload("res://Models/yellow_texture.material"),
-	COLOR.GREEN: preload("res://Models/green_texture.material")
-
+	COLOR.GREEN: preload("res://Models/green_texture.material"),
+	COLOR.GRAY: preload("res://Models/gray_texture.material"),
 }
 
 func set_mats(bld: Spatial, arr):

@@ -45,3 +45,5 @@ polygon = PoolVector2Array( -100, -100, 100, -100, 100, 100, -100, 100 )
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 
 [node name="meta" parent="Back" instance=ExtResource( 4 )]
+
+[node name="Decor" type="Spatial" parent="."]

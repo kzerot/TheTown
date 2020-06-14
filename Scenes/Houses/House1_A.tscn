@@ -4,6 +4,7 @@
 [ext_resource path="res://Scenes/RawHouses/House1_A.tscn" type="PackedScene" id=2]
 
 [node name="House" instance=ExtResource( 1 )]
+decor = false
 
 [node name="house1_a" parent="Visual" index="0" instance=ExtResource( 2 )]
 
