@@ -2,6 +2,7 @@ extends Spatial
 
 signal add_money(howmuch)
 signal win
+signal message(s)
 signal restart
 signal sound(s)
 var terrain : Terrain
@@ -20,6 +21,7 @@ var game_time = 0
 var figures_count = 0
 var lines = {}
 var camera_zoom = 1
+var time
 func init():
 	if has_node("DirectionalLight"):
 		$DirectionalLight.shadow_enabled = !OS.has_feature('JavaScript')
@@ -59,6 +61,9 @@ func _process(delta: float) -> void:
 #			print("prepare")
 	if game_started:
 		game_time += delta
+		var m = int(game_time/60)
+		var s = int(game_time) % 60
+		time.text = "%02d:%02d" %[m, s]
 
 func terrain_tapped(vec : Vector3, real: Vector3):
 	print("Terrain coordinates: ", vec)
@@ -132,6 +137,7 @@ func win():
 		is_win = is_win and lines[line] <= count_lines(line)
 	game_started = false
 	if is_win:
+		var frases = []
 		var x = 1
 		var f_place_time = figures_count*2 + 1
 		if f_place_time >= game_time:
@@ -141,6 +147,8 @@ func win():
 			x = 3
 		elif f_place_time * 1.5 * 1.5 >= game_time:
 			x = 2
+		if x > 1:
+			emit_signal("message", "TIME BONUS X" + str(x))
 		var particles_arr = []
 		for cell in terrain.get_all():
 			var particles = particles_inst.instance()
@@ -225,6 +233,7 @@ func _unhandled_input(event):
 	if (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
 
 		if event.pressed:
+			game_started = true
 			if selected:
 				var result = pick(4) # Floor
 				if result:

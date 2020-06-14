@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Themes/Base.tres" type="Theme" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://Images/meta4.png" type="Texture" id=20]
 [ext_resource path="res://Images/meta2.png" type="Texture" id=21]
 [ext_resource path="res://Images/meta3.png" type="Texture" id=22]
+[ext_resource path="res://Scenes/Message.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Fonts/Base.tres" type="DynamicFont" id=24]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ViewportContainer
@@ -52,6 +54,20 @@ anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -206.491
+margin_top = 16.2108
+margin_right = -78.491
+margin_bottom = 49.2108
+custom_fonts/font = ExtResource( 24 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "00:00"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -323,14 +339,14 @@ asset = "Back0"
 [node name="Item2" parent="Shop/Shop" instance=ExtResource( 19 )]
 margin_left = 171.0
 margin_right = 338.0
-gold = 100
+gold = 350
 asset = "Back2"
 
 [node name="Item3" parent="Shop/Shop" instance=ExtResource( 19 )]
 margin_top = 172.0
 margin_bottom = 340.0
 texture_normal = ExtResource( 21 )
-gold = 200
+gold = 400
 asset = "Back1"
 
 [node name="Item4" parent="Shop/Shop" instance=ExtResource( 19 )]
@@ -339,11 +355,14 @@ margin_top = 172.0
 margin_right = 338.0
 margin_bottom = 340.0
 texture_normal = ExtResource( 22 )
-gold = 300
+gold = 450
 asset = "Back3"
 
 [node name="ShopTween" type="Tween" parent="."]
 pause_mode = 2
+
+[node name="Message" parent="." instance=ExtResource( 23 )]
+visible = false
 [connection signal="resized" from="." to="." method="resized"]
 [connection signal="toggled" from="Sound/Sound" to="." method="toggle_sound"]
 [connection signal="pressed" from="Panel/Market/TextureButton" to="." method="show_show"]

@@ -30,6 +30,7 @@ func load_level(i=-1):
 		get_node(viewers).add_child(v)
 		v.init()
 	game = res.scene
+	game.time = $Time
 	get_node(viewport).add_child(game)
 	game.viewers = get_node(viewers)
 	if "lines" in res:
@@ -40,6 +41,10 @@ func load_level(i=-1):
 	game.connect("restart", self, "reload")
 	game.connect("add_money", self, "add_money")
 	game.connect("sound", self, "sound")
+	game.connect("message", self, "message")
+
+func message(s):
+	$Message.run(s)
 
 func sound(s):
 	get_node(s).stop()
