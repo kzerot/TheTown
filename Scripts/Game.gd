@@ -46,6 +46,7 @@ func init():
 #	for i in viewers.get_child_count():
 #		viewers.get_child(i).connect("pressed", self, "viewer_tap", [viewers.get_child(i)])
 	house_built()
+	time.text = "00:00"
 
 func calc_places():
 	var figures_count = viewers.get_child_count()
@@ -139,7 +140,7 @@ func win():
 	if is_win:
 		var frases = []
 		var x = 1
-		var f_place_time = figures_count*2 + 1
+		var f_place_time = figures_count + 2
 		if f_place_time >= game_time:
 			# 1 place
 			x = 4
@@ -223,7 +224,9 @@ func build(force = null):
 			i += 1
 		update_markers(0)
 		terrain.cells_left -= force.markers_count()
-	force = null
+	if force == selected:
+		selected = null
+
 func stop(st):
 	set_process_unhandled_input(!st)
 	set_process(!st)
@@ -274,6 +277,7 @@ func _unhandled_input(event):
 						var w = terrain.world_to_map(c)
 						field[int(w.x)][int(w.z)] = selected.colors[i]
 						i+=1
+					selected = null
 					update_markers(0)
 				else:
 					check()

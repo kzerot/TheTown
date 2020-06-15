@@ -61,5 +61,6 @@ material/0 = SubResource( 2 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 17.4396, 17.7891, 10.946 )
 projection = 1
+current = true
 size = 30.0
 far = 3000.0
